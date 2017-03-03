@@ -68,6 +68,8 @@ class TestAnnotationParser extends  \TestCase
 
         $this->assertEquals('anno1'  ,$classAnnotations[0]->getName() );
 
+        $this->assertNotNull( $r->getClassAnnotation('anno1'));
+
     }
 
     public function testParse2(){
@@ -82,6 +84,14 @@ class TestAnnotationParser extends  \TestCase
         $this->assertEquals( 0, count($classAnnotations ) );
 
 //        $this->assertEquals('anno1'  ,$classAnnotations[0]->getName() );
+
+        $this->assertNull($r->getMethodAnnotation('methodA_','mAnno'));
+
+        $this->assertNull($r->getMethodAnnotation('methodA','mAnno_'));
+
+        $this->assertNotNull($r->getMethodAnnotation('methodA','mAnno'));
+
+
 
     }
 

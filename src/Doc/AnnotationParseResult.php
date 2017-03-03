@@ -67,6 +67,22 @@ class AnnotationParseResult
         return $this->classAnnotations;
     }
 
+    private function findAnnotation($annotations,$annotationName){
+        $found = null;
+        foreach ($annotations as $annotation){
+            if (  $annotationName == $annotation->getName() ){
+                $found = $annotation;
+                break;
+            }
+        }
+        return $found;
+    }
+
+    public function getClassAnnotation($annotationName)
+    {
+        return $this->findAnnotation( $this->classAnnotations,$annotationName);
+    }
+
 
 
     public function addClassAnnotation(Annotation $annotation){
@@ -96,11 +112,8 @@ class AnnotationParseResult
     public function getMethodAnnotation($methodName,$annotationName){
         $annotations = $this->getMethodAnnotations($methodName);
         $found = null;
-        foreach ($annotations as $annotation){
-            if (  $annotationName == $annotation->getName() ){
-                $found = $annotation;
-                break;
-            }
+        if ($annotations) {
+            $found = $this->findAnnotation($annotations, $annotationName);
         }
         return $found;
     }
