@@ -102,7 +102,7 @@ class AnnotationParseResult
 
     public function addMethodAnnotation($methodName,Annotation $annotation ){
         if ( array_key_exists($methodName,$this->methodAnnotationsMapping)){
-            $annotations =  $this->methodAnnotationsMapping[$methodName];
+            $annotations =  & $this->methodAnnotationsMapping[$methodName];
             $annotations [] = $annotation;
         }else{
             $this->methodAnnotationsMapping[$methodName] = [$annotation];

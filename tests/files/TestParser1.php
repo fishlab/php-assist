@@ -13,7 +13,9 @@ class TestParser1
 {
 
     //comment m1
-    /** @mAnno arg1
+    /**
+     * @mAnno0 asd
+     * @mAnno arg1
      * */
     public function methodA(){
 

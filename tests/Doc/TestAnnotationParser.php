@@ -62,6 +62,8 @@ class TestAnnotationParser extends  \TestCase
 
         $r  =$par ->parse( $code );
 
+//        print_r($r);
+
         $classAnnotations = $r->getClassAnnotations();
 
         $this->assertEquals( 2, count($classAnnotations ) );
@@ -69,6 +71,10 @@ class TestAnnotationParser extends  \TestCase
         $this->assertEquals('anno1'  ,$classAnnotations[0]->getName() );
 
         $this->assertNotNull( $r->getClassAnnotation('anno1'));
+
+        $this->assertNotNull( $r->getMethodAnnotation('methodA','mAnno0'));
+        $this->assertNotNull( $r->getMethodAnnotation('methodA','mAnno'));
+
 
     }
 
