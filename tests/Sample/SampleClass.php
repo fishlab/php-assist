@@ -41,7 +41,9 @@ class SampleClass{
             }
         }
 
-
+        if ($a==6){
+            throw new Exception\FooException( new SampleException() );
+        }
 
     }
 

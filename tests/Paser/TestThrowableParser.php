@@ -9,20 +9,27 @@ use PhpParser\ParserFactory;
 
 use PhpAssist\Doc\ThrowableParser;
 
+use Tests\Sample\Exception\FooException;
 
 class TestThrowableParser extends \TestCase
 {
 
+    public function testPhpParser(){
+        $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP5);
+        $code = file_get_contents(__DIR__ . '/../Sample/SampleClass.php');
+        $stmts = $parser->parse($code);
+        print_r( $stmts );
+
+    }
+
     public function test(){
-        $this->parser = (new ThrowableParser);
-//        $this->parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP5);
+        $parser = (new ThrowableParser);
 
         $code = file_get_contents(__DIR__ . '/../Sample/SampleClass.php');
 
-        $stmts = $this->parser->parse($code);
+        $reuslt = $parser->parse($code);
 
-        print_r( $stmts );
-
+        print_r( $reuslt->getMethodThrowable('fun',\Exception::class) );
 
 
 

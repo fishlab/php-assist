@@ -9,7 +9,6 @@ namespace PhpAssist\Doc;
 
 class Throwable
 {
-    private $namespace;
     private $className;
     private $arguments;
 
@@ -22,22 +21,6 @@ class Throwable
     {
         $this->className = $className;
         $this->arguments = $arguments;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNamespace()
-    {
-        return $this->namespace;
-    }
-
-    /**
-     * @param mixed $namespace
-     */
-    public function setNamespace($namespace)
-    {
-        $this->namespace = $namespace;
     }
 
 
