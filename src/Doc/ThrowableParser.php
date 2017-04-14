@@ -51,16 +51,24 @@ class ThrowableParser extends BasicParser
 
         if ($classStmt) {
             $result->setClassName($classStmt->name);
+        }else{
+            return $result;
         }
         $classMethods = $this->findStatements($classStmt->stmts,ClassMethod::class);
         foreach($classMethods as $classMethod) {
-            $throwStmts  = $this->statementsIterator($classMethod->stmts,function($s){
-                return $s instanceof Throw_;
-            });
-            $throws = array_map( function($throwStmt) use($namespace,$aliasMapping){
-                return $this->parseThrowStatement( $throwStmt,$namespace,$aliasMapping );
-            } ,$throwStmts);
-            $result->setMethodThrowables( $classMethod->name , $throws );
+            if ($classMethod->stmts) {
+                $throwStmts = $this->statementsIterator($classMethod->stmts, function ($s) {
+                    return $s instanceof Throw_;
+                });
+
+                if ($throwStmts){
+                    $throws = array_map( function($throwStmt) use($namespace,$aliasMapping){
+                        return $this->parseThrowStatement( $throwStmt,$namespace,$aliasMapping );
+                    } ,$throwStmts);
+                    $result->setMethodThrowables( $classMethod->name , $throws );
+                }
+            }
+
 
         }
 
@@ -68,7 +76,11 @@ class ThrowableParser extends BasicParser
     }
 
     public function parseThrowStatement($throwStat,$namespace,$aliasMapping){
-        $class = $throwStat->expr->class;
+        if ( property_exists($throwStat->expr,'class') ) {
+            $class = $throwStat->expr->class;
+        }else{
+            $class = $throwStat->expr->name;
+        }
         $className = null;
         if ( $class instanceof FullyQualified){
             $className =  implode('\\',$class->parts );

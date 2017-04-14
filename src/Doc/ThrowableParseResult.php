@@ -12,15 +12,14 @@ class ThrowableParseResult
     private $namespace;
     private $className;
 
-    private $methodThrowableMapping;
+    private $methodThrowableMapping = [];
 
 
-    private function findThrowable($throwables,$throwableClassName){
-        $found = null;
+    private function findThrowables($throwables,$throwableClassName){
+        $found = [];
         foreach ($throwables as $throwable){
             if (  $throwableClassName == $throwable->getClassName() ){
-                $found = $throwable;
-                break;
+                $found []= $throwable;
             }
         }
         return $found;
@@ -37,9 +36,9 @@ class ThrowableParseResult
 
     public function getMethodThrowable($methodName,$throwableName){
         $throwables = $this->getMethodThrowables($methodName);
-        $found = null;
+        $found = [];
         if ($throwables) {
-            $found = $this->findThrowable($throwables, $throwableName);
+            $found = $this->findThrowables($throwables, $throwableName);
         }
         return $found;
     }
