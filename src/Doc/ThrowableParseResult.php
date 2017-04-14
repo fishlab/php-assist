@@ -14,6 +14,7 @@ class ThrowableParseResult
 
     private $methodThrowableMapping = [];
 
+    private $aliasMapping =[];
 
     private function findThrowables($throwables,$throwableClassName){
         $found = [];
@@ -102,9 +103,30 @@ class ThrowableParseResult
 
 
     public function setMethodThrowables($methodName,$throwables){
+
         $this->methodThrowableMapping[$methodName] = $throwables;
 
     }
+
+    public function getFullyQualifiedName(){
+        if ($this->namespace){
+            return $this->namespace.'\\'.$this->className;
+        }else{
+            return $this->className;
+        }
+
+    }
+
+    public function setAliasRef($alias,$className){
+        $this->aliasMapping[$alias] = $className;
+    }
+
+    public function getAliasRef ($alias){
+        if ( array_key_exists( $alias,$this->aliasMapping )){
+            return $this->aliasMapping [$alias];
+        }
+    }
+
 
 
 

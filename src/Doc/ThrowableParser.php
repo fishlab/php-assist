@@ -47,6 +47,7 @@ class ThrowableParser extends BasicParser
             $fullClassName =  strval( $use->name);
             $aliasClassName = $use->alias;
             $aliasMapping[$aliasClassName ] = $fullClassName;
+            $result->setAliasRef($aliasClassName ,$fullClassName );
         }
 
         if ($classStmt) {

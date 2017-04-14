@@ -10,6 +10,7 @@ use PhpParser\ParserFactory;
 use PhpAssist\Doc\ThrowableParser;
 
 use Tests\Sample\Exception\FooException;
+use PhpParser\Node\Expr\ClassConstFetch;
 
 class TestThrowableParser extends \TestCase
 {
@@ -27,12 +28,18 @@ class TestThrowableParser extends \TestCase
 
         $code = file_get_contents(__DIR__ . '/../Sample/SampleClass.php');
 
-        $reuslt = $parser->parse($code);
+        $result = $parser->parse($code);
 
-        print_r( $reuslt->getMethodThrowable('fun',\Exception::class) );
+//        print_r( $result->getMethodThrowable('fun',FooException::class) );
 
 
+        print_r($result);
 
+
+    }
+
+    public function testGetConstants(){
+        print constant( 'Tests\\Sample\\Constants'  . '::status_error' );
     }
 
 

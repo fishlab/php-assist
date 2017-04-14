@@ -8,10 +8,13 @@ namespace Tests\Sample;
  */
 
 use Tests\Sample\Exception\BarException as BAE;
+use Tests\Sample\Exception\BarException;
 use Tests\Sample\Exception\FooException;
 
 
 class SampleClass{
+
+    const status_error = 'some_mistake';
 
     public function fun($a){
 
@@ -44,6 +47,18 @@ class SampleClass{
         if ($a==6){
             throw new Exception\FooException( new SampleException() );
         }
+
+        if ($a==7) {
+            throw new \Exception(self::status_error);
+        }
+        if ($a==8) {
+//            throw new \Exception( BarException::exception_code );
+            throw new \Exception( static::status_error );
+
+        }
+
+
+
 
     }
 

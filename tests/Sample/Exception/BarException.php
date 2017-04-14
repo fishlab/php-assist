@@ -6,5 +6,5 @@ namespace Tests\Sample\Exception;
  */
 class BarException extends \Exception
 {
-
+    const exception_code = "bar_exception_code";
 }
